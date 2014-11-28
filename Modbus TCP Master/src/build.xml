@@ -1,0 +1,48 @@
+<!--
+
+ build.xml - FieldTalk Java Edition example applications ANT build script
+
+-->
+
+<project name="TcpSimple" default="run" basedir=".">
+
+   <description>
+      FieldTalk Java Edition example applications build script
+   </description>
+
+   <!-- Define project class path -->
+   <path id="class.path">
+      <pathelement location="../../lib/mbusmaster.jar"/>
+   </path>
+
+
+   <!-- Compile the source task -->
+   <target name="compile" description="Compile the source">
+      <javac srcdir="." destdir=".">
+         <classpath refid="class.path"/>
+         <include name="**/*.java"/>
+      </javac>
+   </target>
+
+
+   <!-- Run sample program -->
+   <target name="run" depends="compile" description="Execute sample program">
+      <java classname="${ant.project.name}" fork="true">
+         <classpath refid="class.path"/>
+         <classpath>
+            <pathelement location="."/>
+         </classpath>
+      </java>
+   </target>
+
+
+   <!-- Clean-up task -->
+   <target name="clean" description="Clean up">
+      <delete>
+         <fileset dir="." includes="**/*.class"/>
+      </delete>
+   </target>
+
+
+</project>
+
